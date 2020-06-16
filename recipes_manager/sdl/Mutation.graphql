@@ -1,0 +1,15 @@
+directive @rateLimiting(
+  name: String!
+  maxAttempts: Int! = 5
+  duration: Int! = 60
+) on FIELD_DEFINITION
+
+input RecipeInput {
+  id: Int!
+  name: String
+  cookingTime: Int
+}
+
+type Mutation {
+  updateRecipe(input: RecipeInput!): Recipe! @rateLimiting(name: "update_recipe")
+}
